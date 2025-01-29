@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+      
+    <h1>jQuery And Ajax API Call Example</h1>
+    <button id="showAndHide">All Data</button>
+
+    <div>
+      <table class="table table-bordered">
+        <thead>
+          <tr style="background-color: blue;">
+            <th>Id</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>created_at</th>
+            <th>updated_at</th>
+          </tr>
+        </thead>
+        <tbody id="output">
+          <!-- Data will be inserted here -->
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      $(document).ready(function(){
+        $("#showAndHide").click(function(){
+          $.get('http://127.0.0.1:8000/api/users', function(data) {
+            let tableBody = '';
+            let output = '';
+            $.each(data.users, function(index, user) {
+              tableBody += '<tr>';
+              tableBody += '<td>' + user.id + '</td>';
+              tableBody += '<td>' + user.firstName + '</td>';
+              tableBody += '<td>' + user.lastName + '</td>';
+              tableBody += '<td>' + user.email + '</td>';
+              tableBody += '<td>' + user.created_at + '</td>';
+              tableBody += '<td>' + user.updated_at + '</td>';
+              tableBody += '</tr>';
+            });
+            $("#output").html(tableBody);
+          });
+        });
+      });
+    </script>
+ </body>
+</html>
